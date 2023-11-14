@@ -48,7 +48,7 @@ class ArticleController extends Controller
 				}
 			});
 
-			Cache::del('tags');
+			Cache::delete('tags');
 
 			return 'ok';
 		} catch (Exception $e) {
