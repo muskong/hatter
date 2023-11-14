@@ -3,9 +3,30 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-	<title>Laravel</title>
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+	<title>{{ $article->title }} hatter.top</title>
+
+	<!-- Primary Meta Tags -->
+	<meta name="keywords" content="{{ $keywords }}">
+	<meta name="description" content="{{ $article->body }}">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://hatter.top">
+	<meta property="og:title" content="{{ $keywords }}">
+	<meta property="og:description" content="{{ $article->body }}">
+
+	<!-- Twitter -->
+	<meta property="twitter:url" content="https://hatter.top">
+	<meta property="twitter:title" content="{{ $keywords }}">
+	<meta property="twitter:description" content="{{ $article->body }}">
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.bunny.net" />

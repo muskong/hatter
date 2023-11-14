@@ -27,11 +27,14 @@ class WelcomeController extends Controller
 			$udid = $articles[0]->udid ?? '';
 		}
 
+
 		$article = Article::with('tags')->firstWhere(['udid' => $udid]);
+
 		return view('welcome', [
 			'articles' => $articles,
 			'tags' => $tags,
-			'article' => $article
+			'article' => $article,
+			'keywords' => implode(",", array_column($article->tags->toArray(), 'name'))
 		]);
 
 	}
