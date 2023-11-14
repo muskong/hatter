@@ -46,6 +46,9 @@ class ArticleController extends Controller
 					$article->tags()->sync($tagIds);
 				}
 			});
+
+			Cache::del('tags');
+
 			return 'ok';
 		} catch (Exception $e) {
 			return $e->getMessage();
