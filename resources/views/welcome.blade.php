@@ -49,11 +49,6 @@
 					Russell Notes
 				</p>
 				<div class="subtitle">
-					<span class="tag">php</span>
-					<span class="tag">mysql</span>
-					<span class="tag">react</span>
-					<span class="tag">linux</span>
-					<span class="tag">mac</span>
 					@foreach($tags as $tag)
 					<span class="tag">{{ $tag->name }}</span>
 					@endforeach
