@@ -84,6 +84,7 @@
 			<div class="tags are-medium">
 				@foreach($article->tags as $tag)
 				<span class="tag">{{ $tag->name }}</span>
+				@endforeach
 			</div>
 		</section>
 		<footer class="footer">
