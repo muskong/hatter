@@ -81,6 +81,10 @@
 				{{ $article->created_at }}
 			</h2>
 			<p class="content is-large body">{!! $article->body !!}</p>
+			<div class="tags are-medium">
+				@foreach($article->tags as $tag)
+				<span class="tag">{{ $tag->name }}</span>
+			</div>
 		</section>
 		<footer class="footer">
 			<div class="content has-text-centered">
