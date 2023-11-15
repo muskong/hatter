@@ -4,39 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Tag;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class WelcomeController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
 	 */
-	public function __invoke($udid = '')
+	public function __invoke($udid = '', $tag = '')
 	{
-		$articles = Article::orderByDesc('created_at')->get(['udid', 'title']);
-
-		$cacheTagName = 'tags';
-		$tags = Cache::get($cacheTagName);
-		if (!$tags) {
-			$tags = Tag::get(['id', 'name']);
-			Cache::put($cacheTagName, $tags, 24 * 60 * 60);
+		$all = Article::orderByDesc('created_at');
+		if ($tag) {
+			$all->whereHas('tags', function ($query) use ($tag) {
+				$query->where('name', '=', $tag);
+			});
 		}
-
+		$articles = $all->get(['udid', 'title']);
 		if (!$udid) {
-			$udid = $articles[0]->udid ?? '';
+			$udid = $articles[0]->udid;
 		}
-
-
 		$article = Article::with('tags')->firstWhere(['udid' => $udid]);
 
 		return view('welcome', [
+			'tagName'=>$tag,
+			'tags' => Tag::tags(),
+			'keywords' => implode(",", array_column($article->tags->toArray(), 'name')),
 			'articles' => $articles,
-			'tags' => $tags,
 			'article' => $article,
-			'keywords' => implode(",", array_column($article->tags->toArray(), 'name'))
 		]);
-
 	}
-
 }

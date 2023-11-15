@@ -38,19 +38,24 @@
 		.body {
 			white-space: pre-wrap;
 		}
+		.hero-header{
+			margin-bottom: 20px;
+		}
 	</style>
 </head>
 
 <body>
 	<section class="hero is-primary">
 		<div class="hero-body">
-			<div class="container is-max-desktop">
-				<p class="title">
-					Russell Notes
+			<div class="container has-text-centered is-max-desktop">
+				<p class="hero-header">
+					<a class="title" href="/">
+						Russell Notes
+					</a>
 				</p>
 				<div class="subtitle">
 					@foreach($tags as $tag)
-					<span class="tag">{{ $tag->name }}</span>
+					<a href="{{ route('tag', ['tag'=>$tag->name]) }}"><span class="tag">{{ $tag->name }}</span></a>
 					@endforeach
 				</div>
 			</div>
@@ -64,7 +69,7 @@
 				@else
 			<li>
 				@endif
-				<a href="{{ route('article', ['udid'=>$chapter->udid]) }}">{{$chapter->title}}</a>
+				<a href="{{ route('article', ['udid'=>$chapter->udid, 'tag'=>$tagName]) }}">{{$chapter->title}}</a>
 			</li>
 			@endforeach
 		</ul>
@@ -76,9 +81,9 @@
 				{{ $article->created_at }}
 			</h2>
 			<p class="content is-large body">{!! $article->body !!}</p>
-			<div class="tags are-medium">
+			<div class="tags">
 				@foreach($article->tags as $tag)
-				<span class="tag">{{ $tag->name }}</span>
+				<a href="{{ route('tag', ['tag'=>$tag->name]) }}"><span class="tag">{{ $tag->name }}</span></a>
 				@endforeach
 			</div>
 		</section>
