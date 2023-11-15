@@ -14,7 +14,7 @@ class WelcomeController extends Controller
 	 */
 	public function __invoke($udid = '')
 	{
-		$articles = Article::orderByDesc('updated_at')->get(['udid', 'title']);
+		$articles = Article::orderByDesc('created_at')->get(['udid', 'title']);
 
 		$cacheTagName = 'tags';
 		$tags = Cache::get($cacheTagName);
