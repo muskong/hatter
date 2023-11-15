@@ -21,5 +21,4 @@ Route::get('{udid}/{tag?}', WelcomeController::class)
 	->whereNumber('udid')
 	->whereAlpha('tag');
 Route::get('{tag}', TagController::class)
-	->name('tag')
-	->whereAlpha('tag');
+	->name('tag');
