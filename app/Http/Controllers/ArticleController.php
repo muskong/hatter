@@ -10,17 +10,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 
-class ArticleController extends Controller
-{
+class ArticleController extends Controller {
 	/**
 	 * Handle the incoming request.
 	 */
-	public function __invoke(Request $request)
-	{
+	public function __invoke(Request $request) {
 		try {
+			logger(__METHOD__.__LINE__, (array)$request->all());
 			// return Str::random(32);
 			$password = $request->input("password");
-			if ($password && $password != env('password')) {
+			if($password && $password != env('password')) {
 				return 'fail';
 			}
 			DB::transaction(function () use ($request) {
@@ -30,20 +29,20 @@ class ArticleController extends Controller
 
 
 				$article = Article::updateOrCreate(['title' => $title,], ['body' => $body]);
-				if (!$article) {
+				if(!$article) {
 					return '文章写入失败';
 				}
 				$article->udid = bcadd(date('ymd'), $article->id, 0);
 				$article->save();
 
 				$tagIds = [];
-				if ($tags) {
-					foreach ($tags as $tag) {
+				if($tags) {
+					foreach($tags as $tag) {
 						$item = Tag::firstOrCreate(['name' => $tag]);
 						$tagIds[] = $item->id;
 					}
 				}
-				if (count($tagIds) > 0) {
+				if(count($tagIds) > 0) {
 					$article->tags()->sync($tagIds);
 				}
 			});
