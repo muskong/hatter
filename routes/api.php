@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/save', ArticleController::class)->name('article.save');
+
+// iA Writer
+Route::get('/ghost/api/v2/admin/site', function(){
+	return response('success');
+});
