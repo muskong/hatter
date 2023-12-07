@@ -30,7 +30,7 @@ Route::middleware([LogMiddleware::class])->group(function () {
 			]
 		]);
 	});
-	Route::post('/ghost/api/v2/admin/posts/', function (Request $request) {
+	Route::post('/ghost/api/v2/admin/posts', function (Request $request) {
 		logger('POST:admin/posts', (array) $request->all());
 		return response('ok');
 	});

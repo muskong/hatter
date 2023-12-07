@@ -15,7 +15,7 @@ class LogMiddleware
 	 */
 	public function handle(Request $request, Closure $next): Response
 	{
-		logger('请求日志', $request->all());
+		logger('请求日志', [$request->header(), $request->headers->all(), $request->all()]);
 
 		return $next($request);
 	}
