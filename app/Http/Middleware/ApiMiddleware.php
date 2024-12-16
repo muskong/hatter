@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogMiddleware
+class ApiMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,10 @@ class LogMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-		logger('请求日志', [$request->header(), $request->headers->all(), $request->all()]);
-        return $next($request);
-    }
+        $password = $request->bearerToken();
+		if($password && $password != env('password')) {
+			return response()->json(['message' => '密码错误']);
+		}
+		return $next($request);
+	}
 }

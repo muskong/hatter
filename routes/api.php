@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Middleware\ApiMiddleware;
 use App\Http\Middleware\LogMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::middleware([LogMiddleware::class])->group(function () {
+Route::middleware([LogMiddleware::class, ApiMiddleware::class])->group(function () {
 	Route::post('/save', ArticleController::class)->name('article.save');
 
 	// iA Writer

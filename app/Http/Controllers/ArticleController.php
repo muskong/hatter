@@ -18,10 +18,6 @@ class ArticleController extends Controller {
 		try {
 			logger(__METHOD__.__LINE__, (array)$request->all());
 			// return Str::random(32);
-			$password = $request->input("password");
-			if($password && $password != env('password')) {
-				return 'fail';
-			}
 			DB::transaction(function () use ($request) {
 				$title = $request->input('title');
 				$body = $request->input('body');
@@ -54,4 +50,11 @@ class ArticleController extends Controller {
 			return $e->getMessage();
 		}
 	}
+
+    public function list(Request $request) {
+        $page = $request->input('page', 1);
+        $pageSize = $request->input('pageSize', 10);
+        $articles = Article::with('tags')->limit($pageSize)->offset(($page - 1) * $pageSize)->get();
+        return $articles;
+    }
 }
